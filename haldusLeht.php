@@ -1,6 +1,7 @@
 <?php
-require_once("conf.php");
+require_once("conf2.php");
 session_start();
+ob_start();
 
 if(isset($_REQUEST["heatants"]) && !isAdmin()){
     global $yhendus;

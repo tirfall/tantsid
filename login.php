@@ -1,5 +1,7 @@
 <?php
-require_once("conf.php");
+session_start();
+ob_start();
+require_once("conf2.php");
 global $yhendus;
 
 
@@ -38,6 +40,6 @@ if (!empty($_POST['login']) && !empty($_POST['pass'])) {
 <h1>Login</h1>
 <form action="" method="post">
     Login nimi: <input type="text" name="login"><br><br>
-    Password: <input type="pass" name="pass"><br><br>
+    Password: <input type="password" name="pass"><br><br>
     <input type="submit" value="Logi sisse">
 </form>

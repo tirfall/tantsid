@@ -1,7 +1,9 @@
 <?php
-require_once("conf.php");
+session_start();
 ob_start();
+require_once("conf2.php");
 global $yhendus;
+
 
 
 
@@ -20,13 +22,14 @@ if (!empty($_POST['regnimi']) && !empty($_POST['passr'])) {
     if ($kontrollimine->fetch()) {
         echo "Kasutajanimi '$regnimi' on võetud";
         $kontrollimine->close();
+        $yhendus->close();
         exit();
     }
     $kontrollimine->close();
 
     $kaskINSERT = $yhendus->prepare("INSERT INTO kasutaja(kasutaja, parool, onAdmin, onKas) VALUES (?,?,0,1) ");
     $kaskINSERT->bind_param("ss", $regnimi, $kryp);
-    kaskINSERT->execute();
+
     if($kaskINSERT->execute()){
         $paring=$yhendus-> prepare("SELECT kasutaja,onAdmin, onKas FROM kasutaja WHERE kasutaja=? AND parool=?");
         $paring->bind_param("ss", $regnimi, $kryp);
@@ -44,12 +47,12 @@ if (!empty($_POST['regnimi']) && !empty($_POST['passr'])) {
         }
         else {
             echo "Kasutajanimi '$regnimi' on võetud";
-
+            $yhendus->close();
         }
     }
     else {
         echo "Kasutajanimi '$regnimi' on võetud";
-
+        $yhendus->close();
     }
 
     $yhendus->close();
@@ -59,6 +62,6 @@ if (!empty($_POST['regnimi']) && !empty($_POST['passr'])) {
 <h1>Registreerimine</h1>
 <form action="" method="post">
     Nimi: <input type="text" name="regnimi"><br><br>
-    Password: <input type="pass" name="passr"><br><br>
+    Password: <input type="password" name="passr"><br><br>
     <input type="submit" value="Registreeri">
 </form>

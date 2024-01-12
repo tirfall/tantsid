@@ -1,7 +1,7 @@
 <?php
-require_once("conf.php");
+require_once("conf2.php");
 session_start();
-
+ob_start();
 //punktid nulliks
 if(isset($_REQUEST["punktid0"])){
     global $yhendus;
@@ -40,10 +40,8 @@ function isAdmin(){
 </head>
 <body>
 <h1>Tantsud tähtedega</h1>
-
 <?php
 include('logimine.php');
-include('registreerimine.php');
 include('navigatsioon.php');
 ?>
 <h2>Administreerimisleht</h2>
